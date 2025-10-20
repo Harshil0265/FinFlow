@@ -1,7 +1,9 @@
 import mongoose, { Schema, Document } from 'mongoose';
 import { Budget } from '@/types';
 
-export interface IBudget extends Omit<Budget, '_id'>, Document {}
+export interface IBudget extends Omit<Budget, '_id' | 'userId'>, Document {
+  userId: mongoose.Types.ObjectId;
+}
 
 const BudgetSchema = new Schema<IBudget>({
   userId: {

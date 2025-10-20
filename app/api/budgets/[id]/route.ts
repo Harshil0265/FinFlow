@@ -68,8 +68,9 @@ export async function PUT(
 
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
+  const { id } = await params;
   try {
     await connectDB();
 
@@ -90,7 +91,7 @@ export async function DELETE(
     }
 
     const budget = await Budget.findOneAndDelete({
-      _id: params.id,
+      _id: id,
       userId: payload.userId,
     });
 

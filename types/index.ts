@@ -35,6 +35,8 @@ export interface RecurringRule {
   dayOfWeek?: number; // 0-6 (Sunday-Saturday)
   dayOfMonth?: number; // 1-31
   monthOfYear?: number; // 1-12
+  endDate?: Date;
+  count?: number;
 }
 
 export interface RecurringTransaction {

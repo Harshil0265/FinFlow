@@ -1,7 +1,9 @@
 import mongoose, { Schema, Document } from 'mongoose';
 import { Transaction, RecurringRule } from '@/types';
 
-export interface ITransaction extends Omit<Transaction, '_id'>, Document {}
+export interface ITransaction extends Omit<Transaction, '_id' | 'userId'>, Document {
+  userId: mongoose.Types.ObjectId;
+}
 
 const RecurringRuleSchema = new Schema<RecurringRule>({
   frequency: {

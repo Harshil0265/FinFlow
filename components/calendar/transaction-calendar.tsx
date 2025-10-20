@@ -62,7 +62,7 @@ export function TransactionCalendar({
   }, [transactions]);
 
   // Custom event style getter
-  const eventStyleGetter = useCallback((event: CalendarEvent) => {
+  const eventStyleGetter = useCallback((event: any) => {
     const isIncome = event.resource.type === 'income';
     return {
       style: {
@@ -79,7 +79,7 @@ export function TransactionCalendar({
   }, []);
 
   // Handle event selection
-  const handleSelectEvent = useCallback((event: CalendarEvent) => {
+  const handleSelectEvent = useCallback((event: any) => {
     setSelectedEvent(event.resource);
     setIsModalOpen(true);
     onEventSelect?.(event.resource);
