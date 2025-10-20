@@ -1,7 +1,8 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
-const publicPaths = ['/', '/demo', '/login', '/register', '/api/auth/login', '/api/auth/register'];
+const publicPaths = ['/', '/demo', '/login', '/register'];
+const publicApiPaths = ['/api/auth/login', '/api/auth/register'];
 const authPaths = ['/login', '/register'];
 
 // Edge Runtime compatible security headers
@@ -24,8 +25,13 @@ export function middleware(request: NextRequest) {
     response.headers.set(key, value);
   });
   
+  // Allow public API paths
+  if (publicApiPaths.some(path => pathname === path)) {
+    return response;
+  }
+  
   // Allow public paths (landing page, demo, auth pages)
-  if (publicPaths.some(path => pathname === path || pathname.startsWith(path))) {
+  if (publicPaths.some(path => pathname === path)) {
     return response;
   }
 
@@ -66,6 +72,6 @@ export function middleware(request: NextRequest) {
 
 export const config = {
   matcher: [
-    '/((?!api/auth|_next/static|_next/image|favicon.ico|manifest.json|icons|sw.js).*)',
+    '/((?!_next/static|_next/image|favicon.ico|manifest.json|icons|sw.js).*)',
   ],
 };
