@@ -143,7 +143,7 @@ export function checkRateLimit(
   };
 }
 
-// Get client IP address
+// Get client IP address (Edge Runtime compatible)
 export function getClientIP(request: NextRequest): string {
   const forwarded = request.headers.get('x-forwarded-for');
   const realIP = request.headers.get('x-real-ip');
@@ -156,7 +156,8 @@ export function getClientIP(request: NextRequest): string {
     return realIP;
   }
   
-  return request.ip || 'unknown';
+  // Fallback for Edge Runtime
+  return 'unknown';
 }
 
 // Security headers

@@ -8,6 +8,10 @@ export interface User {
     dateFormat: string;
     theme: 'light' | 'dark' | 'system';
   };
+  refreshToken?: string;
+  lastLogin?: Date;
+  loginAttempts?: number;
+  lockUntil?: Date;
   createdAt: Date;
   updatedAt: Date;
 }
