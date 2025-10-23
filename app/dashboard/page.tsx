@@ -23,6 +23,7 @@ import { useTransactionsWithAuth, useTransactionStats } from '@/hooks/useTransac
 import { useDemoMode } from '@/hooks/useDemoMode';
 import { RecurringTransactionsWidget } from '@/components/dashboard/recurring-transactions-widget';
 import { CurrencyWidget } from '@/components/dashboard/currency-widget';
+import { SMSImportWidget } from '@/components/dashboard/sms-import-widget';
 import { DemoBanner } from '@/components/demo/demo-banner';
 import { DemoCTACard } from '@/components/demo/demo-cta-card';
 import { formatCurrency } from '@/lib/utils';
@@ -286,6 +287,16 @@ export default function DashboardPage() {
           className="xl:col-span-1"
         >
           <CurrencyWidget />
+        </motion.div>
+
+        {/* SMS Import Widget */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.8 }}
+          className="xl:col-span-1"
+        >
+          <SMSImportWidget />
         </motion.div>
 
         {/* Demo CTA */}

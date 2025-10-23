@@ -2,11 +2,13 @@ import jwt from 'jsonwebtoken';
 import { NextRequest } from 'next/server';
 import { User } from '@/types';
 
-const JWT_SECRET = process.env.JWT_SECRET!;
-const JWT_REFRESH_SECRET = process.env.JWT_REFRESH_SECRET!;
+const JWT_SECRET = process.env.JWT_SECRET;
+const JWT_REFRESH_SECRET = process.env.JWT_REFRESH_SECRET;
 
-if (!JWT_SECRET || !JWT_REFRESH_SECRET) {
-  throw new Error('JWT secrets must be defined in environment variables');
+function validateJWTSecrets() {
+  if (!JWT_SECRET || !JWT_REFRESH_SECRET) {
+    throw new Error('JWT secrets must be defined in environment variables');
+  }
 }
 
 export interface JWTPayload {
@@ -15,28 +17,34 @@ export interface JWTPayload {
 }
 
 export function generateTokens(user: User) {
+  validateJWTSecrets();
+  
   const payload: JWTPayload = {
     userId: user._id,
     email: user.email,
   };
 
-  const accessToken = jwt.sign(payload, JWT_SECRET, { expiresIn: '15m' });
-  const refreshToken = jwt.sign(payload, JWT_REFRESH_SECRET, { expiresIn: '7d' });
+  const accessToken = jwt.sign(payload, JWT_SECRET!, { expiresIn: '15m' });
+  const refreshToken = jwt.sign(payload, JWT_REFRESH_SECRET!, { expiresIn: '7d' });
 
   return { accessToken, refreshToken };
 }
 
 export function verifyAccessToken(token: string): JWTPayload | null {
+  validateJWTSecrets();
+  
   try {
-    return jwt.verify(token, JWT_SECRET) as JWTPayload;
+    return jwt.verify(token, JWT_SECRET!) as JWTPayload;
   } catch (error) {
     return null;
   }
 }
 
 export function verifyRefreshToken(token: string): JWTPayload | null {
+  validateJWTSecrets();
+  
   try {
-    return jwt.verify(token, JWT_REFRESH_SECRET) as JWTPayload;
+    return jwt.verify(token, JWT_REFRESH_SECRET!) as JWTPayload;
   } catch (error) {
     return null;
   }

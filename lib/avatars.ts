@@ -1,19 +1,19 @@
 export interface AvatarOption {
-  id: string;
-  name: string;
-  gender: 'male' | 'female' | 'neutral';
-  style: 'professional' | 'casual' | 'creative' | 'modern';
-  svg: string;
+    id: string;
+    name: string;
+    gender: 'male' | 'female' | 'neutral';
+    style: 'professional' | 'casual' | 'creative' | 'modern';
+    svg: string;
 }
 
 export const digitalAvatars: AvatarOption[] = [
-  // Professional Male Avatars
-  {
-    id: 'prof-male-1',
-    name: 'Professional Alex',
-    gender: 'male',
-    style: 'professional',
-    svg: `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    // Professional Male Avatars
+    {
+        id: 'prof-male-1',
+        name: 'Professional Alex',
+        gender: 'male',
+        style: 'professional',
+        svg: `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
       <defs>
         <linearGradient id="bg1" x1="0%" y1="0%" x2="100%" y2="100%">
           <stop offset="0%" style="stop-color:#667eea;stop-opacity:1" />
@@ -31,13 +31,13 @@ export const digitalAvatars: AvatarOption[] = [
       <rect x="40" y="55" width="20" height="15" fill="#3182ce"/>
       <rect x="38" y="52" width="24" height="3" fill="#2b6cb0"/>
     </svg>`
-  },
-  {
-    id: 'prof-male-2',
-    name: 'Business Marcus',
-    gender: 'male',
-    style: 'professional',
-    svg: `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    },
+    {
+        id: 'prof-male-2',
+        name: 'Business Marcus',
+        gender: 'male',
+        style: 'professional',
+        svg: `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
       <defs>
         <linearGradient id="bg2" x1="0%" y1="0%" x2="100%" y2="100%">
           <stop offset="0%" style="stop-color:#4facfe;stop-opacity:1" />
@@ -55,15 +55,15 @@ export const digitalAvatars: AvatarOption[] = [
       <rect x="40" y="55" width="20" height="15" fill="#1a202c"/>
       <rect x="42" y="52" width="16" height="3" fill="#e53e3e"/>
     </svg>`
-  },
-  
-  // Professional Female Avatars
-  {
-    id: 'prof-female-1',
-    name: 'Executive Sarah',
-    gender: 'female',
-    style: 'professional',
-    svg: `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    },
+
+    // Professional Female Avatars
+    {
+        id: 'prof-female-1',
+        name: 'Executive Sarah',
+        gender: 'female',
+        style: 'professional',
+        svg: `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
       <defs>
         <linearGradient id="bg3" x1="0%" y1="0%" x2="100%" y2="100%">
           <stop offset="0%" style="stop-color:#fa709a;stop-opacity:1" />
@@ -82,13 +82,13 @@ export const digitalAvatars: AvatarOption[] = [
       <circle cx="47" cy="30" r="1" fill="#e53e3e"/>
       <circle cx="53" cy="30" r="1" fill="#e53e3e"/>
     </svg>`
-  },
-  {
-    id: 'prof-female-2',
-    name: 'Manager Lisa',
-    gender: 'female',
-    style: 'professional',
-    svg: `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    },
+    {
+        id: 'prof-female-2',
+        name: 'Manager Lisa',
+        gender: 'female',
+        style: 'professional',
+        svg: `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
       <defs>
         <linearGradient id="bg4" x1="0%" y1="0%" x2="100%" y2="100%">
           <stop offset="0%" style="stop-color:#a8edea;stop-opacity:1" />
@@ -106,15 +106,15 @@ export const digitalAvatars: AvatarOption[] = [
       <rect x="40" y="55" width="20" height="15" fill="#805ad5"/>
       <rect x="38" y="52" width="24" height="3" fill="#ffffff"/>
     </svg>`
-  },
+    },
 
-  // Casual Male Avatars
-  {
-    id: 'casual-male-1',
-    name: 'Cool Jake',
-    gender: 'male',
-    style: 'casual',
-    svg: `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    // Casual Male Avatars
+    {
+        id: 'casual-male-1',
+        name: 'Cool Jake',
+        gender: 'male',
+        style: 'casual',
+        svg: `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
       <defs>
         <linearGradient id="bg5" x1="0%" y1="0%" x2="100%" y2="100%">
           <stop offset="0%" style="stop-color:#ff9a9e;stop-opacity:1" />
@@ -132,13 +132,13 @@ export const digitalAvatars: AvatarOption[] = [
       <rect x="40" y="55" width="20" height="15" fill="#38a169"/>
       <circle cx="50" cy="62" r="3" fill="#ffffff"/>
     </svg>`
-  },
-  {
-    id: 'casual-male-2',
-    name: 'Trendy Mike',
-    gender: 'male',
-    style: 'casual',
-    svg: `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    },
+    {
+        id: 'casual-male-2',
+        name: 'Trendy Mike',
+        gender: 'male',
+        style: 'casual',
+        svg: `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
       <defs>
         <linearGradient id="bg6" x1="0%" y1="0%" x2="100%" y2="100%">
           <stop offset="0%" style="stop-color:#ffecd2;stop-opacity:1" />
@@ -156,15 +156,15 @@ export const digitalAvatars: AvatarOption[] = [
       <path d="M45 38 Q50 42 55 38" stroke="#2d3748" stroke-width="1.5" fill="none"/>
       <rect x="40" y="55" width="20" height="15" fill="#e53e3e"/>
     </svg>`
-  },
+    },
 
-  // Casual Female Avatars
-  {
-    id: 'casual-female-1',
-    name: 'Artistic Emma',
-    gender: 'female',
-    style: 'casual',
-    svg: `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    // Casual Female Avatars
+    {
+        id: 'casual-female-1',
+        name: 'Artistic Emma',
+        gender: 'female',
+        style: 'casual',
+        svg: `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
       <defs>
         <linearGradient id="bg7" x1="0%" y1="0%" x2="100%" y2="100%">
           <stop offset="0%" style="stop-color:#a18cd1;stop-opacity:1" />
@@ -183,13 +183,13 @@ export const digitalAvatars: AvatarOption[] = [
       <circle cx="42" cy="25" r="2" fill="#f56565"/>
       <circle cx="58" cy="25" r="2" fill="#f56565"/>
     </svg>`
-  },
-  {
-    id: 'casual-female-2',
-    name: 'Sporty Zoe',
-    gender: 'female',
-    style: 'casual',
-    svg: `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    },
+    {
+        id: 'casual-female-2',
+        name: 'Sporty Zoe',
+        gender: 'female',
+        style: 'casual',
+        svg: `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
       <defs>
         <linearGradient id="bg8" x1="0%" y1="0%" x2="100%" y2="100%">
           <stop offset="0%" style="stop-color:#ffeaa7;stop-opacity:1" />
@@ -208,15 +208,15 @@ export const digitalAvatars: AvatarOption[] = [
       <rect x="40" y="55" width="20" height="15" fill="#38a169"/>
       <rect x="42" y="57" width="16" height="2" fill="#ffffff"/>
     </svg>`
-  },
+    },
 
-  // Creative Avatars
-  {
-    id: 'creative-male-1',
-    name: 'Designer Leo',
-    gender: 'male',
-    style: 'creative',
-    svg: `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    // Creative Avatars
+    {
+        id: 'creative-male-1',
+        name: 'Designer Leo',
+        gender: 'male',
+        style: 'creative',
+        svg: `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
       <defs>
         <linearGradient id="bg9" x1="0%" y1="0%" x2="100%" y2="100%">
           <stop offset="0%" style="stop-color:#667eea;stop-opacity:1" />
@@ -237,13 +237,13 @@ export const digitalAvatars: AvatarOption[] = [
       <rect x="48" y="57" width="4" height="4" fill="#48bb78"/>
       <rect x="54" y="57" width="4" height="4" fill="#4299e1"/>
     </svg>`
-  },
-  {
-    id: 'creative-female-1',
-    name: 'Artist Maya',
-    gender: 'female',
-    style: 'creative',
-    svg: `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    },
+    {
+        id: 'creative-female-1',
+        name: 'Artist Maya',
+        gender: 'female',
+        style: 'creative',
+        svg: `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
       <defs>
         <linearGradient id="bg10" x1="0%" y1="0%" x2="100%" y2="100%">
           <stop offset="0%" style="stop-color:#ff9a9e;stop-opacity:1" />
@@ -264,15 +264,15 @@ export const digitalAvatars: AvatarOption[] = [
       <circle cx="58" cy="18" r="2" fill="#4299e1"/>
       <circle cx="65" cy="22" r="3" fill="#ed8936"/>
     </svg>`
-  },
+    },
 
-  // Modern Neutral Avatars
-  {
-    id: 'modern-neutral-1',
-    name: 'Tech Sam',
-    gender: 'neutral',
-    style: 'modern',
-    svg: `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    // Modern Neutral Avatars
+    {
+        id: 'modern-neutral-1',
+        name: 'Tech Sam',
+        gender: 'neutral',
+        style: 'modern',
+        svg: `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
       <defs>
         <linearGradient id="bg11" x1="0%" y1="0%" x2="100%" y2="100%">
           <stop offset="0%" style="stop-color:#4facfe;stop-opacity:1" />
@@ -292,13 +292,13 @@ export const digitalAvatars: AvatarOption[] = [
       <rect x="42" y="60" width="16" height="2" fill="#4299e1"/>
       <rect x="42" y="63" width="16" height="2" fill="#4299e1"/>
     </svg>`
-  },
-  {
-    id: 'modern-neutral-2',
-    name: 'Future Alex',
-    gender: 'neutral',
-    style: 'modern',
-    svg: `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    },
+    {
+        id: 'modern-neutral-2',
+        name: 'Future Alex',
+        gender: 'neutral',
+        style: 'modern',
+        svg: `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
       <defs>
         <linearGradient id="bg12" x1="0%" y1="0%" x2="100%" y2="100%">
           <stop offset="0%" style="stop-color:#a8edea;stop-opacity:1" />
@@ -317,19 +317,19 @@ export const digitalAvatars: AvatarOption[] = [
       <rect x="40" y="55" width="20" height="15" fill="#553c9a"/>
       <circle cx="50" cy="62" r="4" fill="#9f7aea"/>
     </svg>`
-  }
+    }
 ];
 
 export const getAvatarsByGender = (gender?: 'male' | 'female' | 'neutral') => {
-  if (!gender) return digitalAvatars;
-  return digitalAvatars.filter(avatar => avatar.gender === gender);
+    if (!gender) return digitalAvatars;
+    return digitalAvatars.filter(avatar => avatar.gender === gender);
 };
 
 export const getAvatarsByStyle = (style?: 'professional' | 'casual' | 'creative' | 'modern') => {
-  if (!style) return digitalAvatars;
-  return digitalAvatars.filter(avatar => avatar.style === style);
+    if (!style) return digitalAvatars;
+    return digitalAvatars.filter(avatar => avatar.style === style);
 };
 
 export const getAvatarById = (id: string) => {
-  return digitalAvatars.find(avatar => avatar.id === id);
+    return digitalAvatars.find(avatar => avatar.id === id);
 };

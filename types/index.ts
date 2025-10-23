@@ -29,6 +29,9 @@ export interface Transaction {
   notes?: string;
   attachments?: string[];
   recurring?: RecurringRule;
+  source?: 'manual' | 'sms_import' | 'api' | 'recurring';
+  confidence?: number;
+  originalSMS?: string;
   createdAt: Date;
   updatedAt: Date;
 }

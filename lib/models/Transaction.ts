@@ -63,11 +63,31 @@ const TransactionSchema = new Schema<ITransaction>({
     type: String,
     default: '',
   },
+  notes: {
+    type: String,
+    default: '',
+  },
   attachments: [{
     type: String,
   }],
   recurring: {
     type: RecurringRuleSchema,
+    default: null,
+  },
+  // SMS Import metadata
+  source: {
+    type: String,
+    enum: ['manual', 'sms_import', 'api', 'recurring'],
+    default: 'manual',
+  },
+  confidence: {
+    type: Number,
+    min: 0,
+    max: 1,
+    default: null,
+  },
+  originalSMS: {
+    type: String,
     default: null,
   },
 }, {

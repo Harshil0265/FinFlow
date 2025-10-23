@@ -18,7 +18,8 @@ import {
   Target,
   BarChart3,
   Repeat,
-  Calculator
+  Calculator,
+  MessageSquare
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/hooks/useAuth';
@@ -34,6 +35,7 @@ const navigation = [
   { name: 'Budgets', href: '/budgets', icon: Target },
   { name: 'Analytics', href: '/analytics', icon: BarChart3 },
   { name: 'Add Transaction', href: '/expenses/new', icon: PlusCircle },
+  { name: 'SMS Connect', href: '/sms-connect', icon: MessageSquare },
   { name: 'Settings', href: '/settings', icon: Settings },
 ];
 
