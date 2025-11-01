@@ -1,7 +1,6 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import { ClerkProvider } from '@clerk/nextjs';
-import { dark } from '@clerk/themes';
 import './globals.css';
 import { Providers } from './providers';
 
@@ -25,30 +24,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <ClerkProvider
-      appearance={{
-        baseTheme: dark,
-        variables: {
-          colorPrimary: '#3b82f6',
-          colorBackground: '#ffffff',
-          colorInputBackground: '#ffffff',
-          colorInputText: '#1f2937',
-        },
-        elements: {
-          formButtonPrimary: 'bg-blue-600 hover:bg-blue-700 text-white',
-          card: 'shadow-lg border border-gray-200',
-          headerTitle: 'text-gray-900',
-          headerSubtitle: 'text-gray-600',
-        },
-      }}
-    >
-      <html lang="en">
-        <body className={inter.className}>
+    <html lang="en">
+      <body className={inter.className}>
+        <ClerkProvider>
           <Providers>
             {children}
           </Providers>
-        </body>
-      </html>
-    </ClerkProvider>
+        </ClerkProvider>
+      </body>
+    </html>
   );
 }
