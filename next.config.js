@@ -10,13 +10,6 @@ const nextConfig = {
     }
     return config;
   },
-  // Disable telemetry and tracing to avoid file permission issues
-  telemetry: {
-    enabled: false,
-  },
-  experimental: {
-    instrumentationHook: false,
-  },
 };
 
 module.exports = nextConfig;
