@@ -1,28 +1,22 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
+import { ClerkProvider } from '@clerk/nextjs';
+import { dark } from '@clerk/themes';
 import './globals.css';
 import { Providers } from './providers';
-import { PWAInstaller } from '@/components/pwa/pwa-installer';
-import { HydrationProvider } from '@/components/providers/hydration-provider';
 
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'FinFlow - Smart Financial Management',
-  description: 'Intelligent financial management application with advanced expense tracking, budgeting, and analytics',
+  title: 'FinFlow - Smart Expense Management',
+  description: 'Intelligent expense tracking with SMS integration and real-time analytics',
   manifest: '/manifest.json',
-  appleWebApp: {
-    capable: true,
-    statusBarStyle: 'default',
-    title: 'FinFlow',
-  },
-};
-
-export const viewport = {
-  width: 'device-width',
-  initialScale: 1,
-  maximumScale: 1,
   themeColor: '#3b82f6',
+  viewport: 'width=device-width, initial-scale=1, maximum-scale=1',
+  icons: {
+    icon: '/icons/icon-192x192.png',
+    apple: '/icons/icon-192x192.png',
+  },
 };
 
 export default function RootLayout({
@@ -31,24 +25,30 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <head>
-        <link rel="apple-touch-icon" href="/icons/icon-192x192.svg" />
-        <meta name="apple-mobile-web-app-capable" content="yes" />
-        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-        <meta name="apple-mobile-web-app-title" content="FinFlow" />
-        <meta name="mobile-web-app-capable" content="yes" />
-        <meta name="msapplication-TileColor" content="#3b82f6" />
-        <meta name="msapplication-tap-highlight" content="no" />
-      </head>
-      <body className={inter.className} suppressHydrationWarning>
-        <HydrationProvider>
+    <ClerkProvider
+      appearance={{
+        baseTheme: dark,
+        variables: {
+          colorPrimary: '#3b82f6',
+          colorBackground: '#ffffff',
+          colorInputBackground: '#ffffff',
+          colorInputText: '#1f2937',
+        },
+        elements: {
+          formButtonPrimary: 'bg-blue-600 hover:bg-blue-700 text-white',
+          card: 'shadow-lg border border-gray-200',
+          headerTitle: 'text-gray-900',
+          headerSubtitle: 'text-gray-600',
+        },
+      }}
+    >
+      <html lang="en">
+        <body className={inter.className}>
           <Providers>
             {children}
-            <PWAInstaller />
           </Providers>
-        </HydrationProvider>
-      </body>
-    </html>
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }

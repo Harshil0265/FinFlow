@@ -2,7 +2,7 @@
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useState } from 'react';
-import { AuthProvider } from '@/components/providers/auth-provider';
+
 import { LoadingProvider } from '@/components/providers/loading-provider';
 import { TransactionProvider } from '@/components/providers/transaction-provider';
 import { RecurringTransactionProvider } from '@/components/providers/recurring-transaction-provider';
@@ -24,24 +24,22 @@ export function Providers({ children }: { children: React.ReactNode }) {
   return (
     <QueryClientProvider client={queryClient}>
       <LoadingProvider>
-        <AuthProvider>
-          <TransactionProvider>
-            <RecurringTransactionProvider>
-              {children}
-              <Toaster 
-                position="top-right"
-                toastOptions={{
-                  duration: 4000,
-                  style: {
-                    background: 'hsl(var(--background))',
-                    color: 'hsl(var(--foreground))',
-                    border: '1px solid hsl(var(--border))',
-                  },
-                }}
-              />
-            </RecurringTransactionProvider>
-          </TransactionProvider>
-        </AuthProvider>
+        <TransactionProvider>
+          <RecurringTransactionProvider>
+            {children}
+            <Toaster 
+              position="top-right"
+              toastOptions={{
+                duration: 4000,
+                style: {
+                  background: 'hsl(var(--background))',
+                  color: 'hsl(var(--foreground))',
+                  border: '1px solid hsl(var(--border))',
+                },
+              }}
+            />
+          </RecurringTransactionProvider>
+        </TransactionProvider>
       </LoadingProvider>
     </QueryClientProvider>
   );

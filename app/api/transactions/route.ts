@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import connectDB from '@/lib/mongodb';
 import Transaction from '@/lib/models/Transaction';
-import { verifyAccessToken, getTokenFromRequest } from '@/lib/auth';
+import { getAuthenticatedUserId, createAuthResponse } from '@/lib/clerk-auth';
 import { transactionSchema } from '@/lib/validations';
 
 export async function GET(request: NextRequest) {
@@ -9,20 +9,9 @@ export async function GET(request: NextRequest) {
     await connectDB();
 
     // Verify authentication
-    const token = getTokenFromRequest(request);
-    if (!token) {
-      return NextResponse.json(
-        { success: false, message: 'Authentication required' },
-        { status: 401 }
-      );
-    }
-
-    const payload = verifyAccessToken(token);
-    if (!payload) {
-      return NextResponse.json(
-        { success: false, message: 'Invalid token' },
-        { status: 401 }
-      );
+    const userId = await getAuthenticatedUserId();
+    if (!userId) {
+      return createAuthResponse(401, 'Authentication required');
     }
 
     // Parse query parameters
@@ -36,7 +25,7 @@ export async function GET(request: NextRequest) {
     const paymentMethod = searchParams.get('paymentMethod');
 
     // Build filter
-    const filter: any = { userId: payload.userId };
+    const filter: any = { userId };
     
     if (startDate || endDate) {
       filter.date = {};
@@ -81,20 +70,9 @@ export async function POST(request: NextRequest) {
     await connectDB();
 
     // Verify authentication
-    const token = getTokenFromRequest(request);
-    if (!token) {
-      return NextResponse.json(
-        { success: false, message: 'Authentication required' },
-        { status: 401 }
-      );
-    }
-
-    const payload = verifyAccessToken(token);
-    if (!payload) {
-      return NextResponse.json(
-        { success: false, message: 'Invalid token' },
-        { status: 401 }
-      );
+    const userId = await getAuthenticatedUserId();
+    if (!userId) {
+      return createAuthResponse(401, 'Authentication required');
     }
 
     const body = await request.json();
@@ -103,7 +81,7 @@ export async function POST(request: NextRequest) {
     // Create transaction
     const transaction = new Transaction({
       ...validatedData,
-      userId: payload.userId,
+      userId,
     });
 
     await transaction.save();

@@ -91,10 +91,10 @@ export default function LandingPage() {
                   <span>Try Demo</span>
                 </Button>
               </Link>
-              <Link href="/login">
-                <Button variant="ghost">Login</Button>
+              <Link href="/sign-in">
+                <Button variant="ghost">Sign In</Button>
               </Link>
-              <Link href="/register">
+              <Link href="/sign-up">
                 <Button className="bg-gradient-to-r from-blue-600 to-purple-600">
                   Sign Up Free
                 </Button>
@@ -130,7 +130,7 @@ export default function LandingPage() {
                 <Sparkles className="w-5 h-5" />
               </Button>
             </Link>
-            <Link href="/register">
+            <Link href="/sign-up">
               <Button size="lg" className="bg-gradient-to-r from-blue-600 to-purple-600 text-lg px-8 py-6">
                 Start Free Account
                 <ArrowRight className="w-5 h-5 ml-2" />
@@ -274,7 +274,7 @@ export default function LandingPage() {
                 Try Demo First
               </Button>
             </Link>
-            <Link href="/register">
+            <Link href="/sign-up">
               <Button size="lg" className="bg-gradient-to-r from-blue-600 to-purple-600 text-lg px-8 py-6">
                 Create Free Account
                 <ArrowRight className="w-5 h-5 ml-2" />

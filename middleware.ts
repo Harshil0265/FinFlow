@@ -1,77 +1,38 @@
+import { clerkMiddleware, createRouteMatcher } from '@clerk/nextjs/server';
 import { NextResponse } from 'next/server';
-import type { NextRequest } from 'next/server';
 
-const publicPaths = ['/', '/demo', '/login', '/register'];
-const publicApiPaths = ['/api/auth/login', '/api/auth/register'];
-const authPaths = ['/login', '/register'];
+const isPublicRoute = createRouteMatcher([
+  '/',
+  '/demo',
+  '/sign-in(.*)',
+  '/sign-up(.*)',
+  '/api/webhooks(.*)',
+  '/api/sms/webhook',
+]);
 
-// Edge Runtime compatible security headers
-const securityHeaders = {
-  'X-Frame-Options': 'DENY',
-  'X-Content-Type-Options': 'nosniff',
-  'Referrer-Policy': 'strict-origin-when-cross-origin',
-  'Permissions-Policy': 'camera=(), microphone=(), geolocation=()',
-  'X-XSS-Protection': '1; mode=block',
-  'Strict-Transport-Security': 'max-age=31536000; includeSubDomains',
-};
-
-export function middleware(request: NextRequest) {
-  const { pathname } = request.nextUrl;
-  
-  // Create response with security headers
+export default clerkMiddleware((auth, request) => {
+  // Add security headers
   const response = NextResponse.next();
-  
-  Object.entries(securityHeaders).forEach(([key, value]) => {
-    response.headers.set(key, value);
-  });
-  
-  // Allow public API paths
-  if (publicApiPaths.some(path => pathname === path)) {
-    return response;
-  }
-  
-  // Allow public paths (landing page, demo, auth pages)
-  if (publicPaths.some(path => pathname === path)) {
-    return response;
+  response.headers.set('X-Frame-Options', 'DENY');
+  response.headers.set('X-Content-Type-Options', 'nosniff');
+  response.headers.set('Referrer-Policy', 'strict-origin-when-cross-origin');
+  response.headers.set('Permissions-Policy', 'camera=(), microphone=(), geolocation=()');
+  response.headers.set('X-XSS-Protection', '1; mode=block');
+  response.headers.set('Strict-Transport-Security', 'max-age=31536000; includeSubDomains');
+
+  // Protect private routes
+  if (!isPublicRoute(request)) {
+    auth().protect();
   }
 
-  // Check for access token
-  const token = request.headers.get('authorization')?.replace('Bearer ', '') ||
-                request.cookies.get('accessToken')?.value;
-
-  if (!token) {
-    // No token, redirect to landing page
-    const redirectResponse = NextResponse.redirect(new URL('/', request.url));
-    Object.entries(securityHeaders).forEach(([key, value]) => {
-      redirectResponse.headers.set(key, value);
-    });
-    return redirectResponse;
-  }
-
-  // Basic token validation (just check if it exists and has reasonable length)
-  if (!token || token.length < 10) {
-    // Invalid token, redirect to landing page
-    const redirectResponse = NextResponse.redirect(new URL('/', request.url));
-    Object.entries(securityHeaders).forEach(([key, value]) => {
-      redirectResponse.headers.set(key, value);
-    });
-    return redirectResponse;
-  }
-
-  // If user is authenticated and trying to access auth pages, redirect to dashboard
-  if (authPaths.some(path => pathname.startsWith(path))) {
-    const redirectResponse = NextResponse.redirect(new URL('/dashboard', request.url));
-    Object.entries(securityHeaders).forEach(([key, value]) => {
-      redirectResponse.headers.set(key, value);
-    });
-    return redirectResponse;
+  // Redirect authenticated users away from auth pages
+  if (auth().userId && (request.nextUrl.pathname === '/sign-in' || request.nextUrl.pathname === '/sign-up')) {
+    return NextResponse.redirect(new URL('/dashboard', request.url));
   }
 
   return response;
-}
+});
 
 export const config = {
-  matcher: [
-    '/((?!_next/static|_next/image|favicon.ico|manifest.json|icons|sw.js).*)',
-  ],
+  matcher: ['/((?!.+\\.[\\w]+$|_next).*)', '/', '/(api|trpc)(.*)'],
 };

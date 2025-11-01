@@ -3,7 +3,6 @@
 import { useUser, useAuth as useClerkAuthHook } from '@clerk/nextjs';
 import { useEffect, useState } from 'react';
 import { User } from '@/types';
-import { toast } from 'react-hot-toast';
 
 export function useAuth() {
   const { user: clerkUser, isLoaded: userLoaded } = useUser();
@@ -40,60 +39,21 @@ export function useAuth() {
     try {
       await signOut();
       setUser(null);
-      toast.success('Logged out successfully');
     } catch (error) {
       console.error('Logout error:', error);
-      toast.error('Logout failed');
     }
-  };
-
-  // Legacy methods for backward compatibility
-  const login = async (email: string, password: string): Promise<void> => {
-    toast.error('Please use the sign-in page for authentication');
-    throw new Error('Use Clerk sign-in page');
-  };
-
-  const register = async (name: string, email: string, password: string): Promise<void> => {
-    toast.error('Please use the sign-up page for registration');
-    throw new Error('Use Clerk sign-up page');
-  };
-
-  const refreshToken = async (): Promise<void> => {
-    // Clerk handles token refresh automatically
-    return Promise.resolve();
-  };
-
-  const updateUser = (userData: Partial<User>) => {
-    if (user) {
-      setUser({ ...user, ...userData });
-    }
-  };
-
-  const fetchUser = async (): Promise<void> => {
-    // Clerk handles user fetching automatically
-    return Promise.resolve();
-  };
-
-  const initialize = async (): Promise<void> => {
-    // Clerk handles initialization automatically
-    return Promise.resolve();
   };
 
   return {
     user,
-    accessToken: null, // Clerk manages tokens internally
     isLoading: isLoading || !authLoaded || !userLoaded,
-    isInitialized: authLoaded && userLoaded,
     isAuthenticated: isSignedIn && !!user,
-    login,
-    register,
     logout,
-    refreshToken,
-    updateUser,
-    fetchUser,
-    initialize,
     // Clerk-specific properties
     clerkUser,
     isSignedIn,
   };
 }
+
+// For backward compatibility, export the same interface
+export { useAuth as default };

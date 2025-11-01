@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { verifyAccessToken } from '@/lib/auth';
+import { getAuthenticatedUserId, createAuthResponse } from '@/lib/clerk-auth';
 import SMSIntegrationService from '@/lib/sms-integration';
 import { z } from 'zod';
 
@@ -22,22 +22,9 @@ const RegisterPhoneSchema = z.object({
 export async function POST(request: NextRequest) {
   try {
     // Verify authentication
-    const authHeader = request.headers.get('authorization');
-    const token = authHeader?.replace('Bearer ', '');
-    
-    if (!token) {
-      return NextResponse.json(
-        { success: false, message: 'Authentication required' },
-        { status: 401 }
-      );
-    }
-
-    const payload = verifyAccessToken(token);
-    if (!payload) {
-      return NextResponse.json(
-        { success: false, message: 'Invalid token' },
-        { status: 401 }
-      );
+    const userId = await getAuthenticatedUserId();
+    if (!userId) {
+      return createAuthResponse(401, 'Authentication required');
     }
 
     const body = await request.json();
@@ -45,7 +32,7 @@ export async function POST(request: NextRequest) {
 
     const smsService = SMSIntegrationService.getInstance();
     const result = await smsService.registerPhoneNumber(
-      payload.userId,
+      userId,
       validatedData.phoneNumber,
       validatedData.permissions,
       validatedData.settings
@@ -93,26 +80,13 @@ export async function POST(request: NextRequest) {
 export async function GET(request: NextRequest) {
   try {
     // Verify authentication
-    const authHeader = request.headers.get('authorization');
-    const token = authHeader?.replace('Bearer ', '');
-    
-    if (!token) {
-      return NextResponse.json(
-        { success: false, message: 'Authentication required' },
-        { status: 401 }
-      );
-    }
-
-    const payload = verifyAccessToken(token);
-    if (!payload) {
-      return NextResponse.json(
-        { success: false, message: 'Invalid token' },
-        { status: 401 }
-      );
+    const userId = await getAuthenticatedUserId();
+    if (!userId) {
+      return createAuthResponse(401, 'Authentication required');
     }
 
     const smsService = SMSIntegrationService.getInstance();
-    const connection = smsService.getConnectionStatus(payload.userId);
+    const connection = smsService.getConnectionStatus(userId);
 
     if (connection) {
       return NextResponse.json({
@@ -147,22 +121,9 @@ export async function GET(request: NextRequest) {
 export async function PUT(request: NextRequest) {
   try {
     // Verify authentication
-    const authHeader = request.headers.get('authorization');
-    const token = authHeader?.replace('Bearer ', '');
-    
-    if (!token) {
-      return NextResponse.json(
-        { success: false, message: 'Authentication required' },
-        { status: 401 }
-      );
-    }
-
-    const payload = verifyAccessToken(token);
-    if (!payload) {
-      return NextResponse.json(
-        { success: false, message: 'Invalid token' },
-        { status: 401 }
-      );
+    const userId = await getAuthenticatedUserId();
+    if (!userId) {
+      return createAuthResponse(401, 'Authentication required');
     }
 
     const body = await request.json();
@@ -174,7 +135,7 @@ export async function PUT(request: NextRequest) {
     }).parse(body);
 
     const smsService = SMSIntegrationService.getInstance();
-    const success = await smsService.updateConnectionSettings(payload.userId, settings);
+    const success = await smsService.updateConnectionSettings(userId, settings);
 
     if (success) {
       return NextResponse.json({
@@ -213,26 +174,13 @@ export async function PUT(request: NextRequest) {
 export async function DELETE(request: NextRequest) {
   try {
     // Verify authentication
-    const authHeader = request.headers.get('authorization');
-    const token = authHeader?.replace('Bearer ', '');
-    
-    if (!token) {
-      return NextResponse.json(
-        { success: false, message: 'Authentication required' },
-        { status: 401 }
-      );
-    }
-
-    const payload = verifyAccessToken(token);
-    if (!payload) {
-      return NextResponse.json(
-        { success: false, message: 'Invalid token' },
-        { status: 401 }
-      );
+    const userId = await getAuthenticatedUserId();
+    if (!userId) {
+      return createAuthResponse(401, 'Authentication required');
     }
 
     const smsService = SMSIntegrationService.getInstance();
-    const success = await smsService.deactivateConnection(payload.userId);
+    const success = await smsService.deactivateConnection(userId);
 
     if (success) {
       return NextResponse.json({
