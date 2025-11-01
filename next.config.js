@@ -1,8 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  experimental: {
-    serverComponentsExternalPackages: ['@clerk/nextjs'],
-  },
+  serverExternalPackages: ['@clerk/nextjs'],
   webpack: (config, { isServer }) => {
     if (!isServer) {
       config.resolve.fallback = {
@@ -11,6 +9,13 @@ const nextConfig = {
       };
     }
     return config;
+  },
+  // Disable telemetry and tracing to avoid file permission issues
+  telemetry: {
+    enabled: false,
+  },
+  experimental: {
+    instrumentationHook: false,
   },
 };
 
