@@ -11,8 +11,8 @@ const isPublicRoute = createRouteMatcher([
   '/api/sms/webhook',
 ]);
 
-export default clerkMiddleware((auth, request) => {
-  // Add security headers
+export default clerkMiddleware(async (auth, request) => {
+  // Add security headers to response
   const response = NextResponse.next();
   response.headers.set('X-Frame-Options', 'DENY');
   response.headers.set('X-Content-Type-Options', 'nosniff');
@@ -21,13 +21,21 @@ export default clerkMiddleware((auth, request) => {
   response.headers.set('X-XSS-Protection', '1; mode=block');
   response.headers.set('Strict-Transport-Security', 'max-age=31536000; includeSubDomains');
 
+  // Check if route is public
+  if (isPublicRoute(request)) {
+    return response;
+  }
+
+  // Get auth session
+  const session = await auth();
+
   // Protect private routes
-  if (!isPublicRoute(request)) {
-    auth().protect();
+  if (!session.userId) {
+    return NextResponse.redirect(new URL('/sign-in', request.url));
   }
 
   // Redirect authenticated users away from auth pages
-  if (auth().userId && (request.nextUrl.pathname === '/sign-in' || request.nextUrl.pathname === '/sign-up')) {
+  if (session.userId && (request.nextUrl.pathname === '/sign-in' || request.nextUrl.pathname === '/sign-up')) {
     return NextResponse.redirect(new URL('/dashboard', request.url));
   }
 
